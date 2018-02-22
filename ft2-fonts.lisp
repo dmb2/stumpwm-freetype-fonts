@@ -26,26 +26,27 @@
   (clx-ft2:font-descent font))
 
 (defmethod font-height ((font clx-ft2:font))
-  (clx-ft2:font-height font))
+  (+ (clx-ft2:font-ascent font) (clx-ft2:font-descent font)))
+
 
 (defmethod text-line-width ((font clx-ft2:font) text &rest keys &key (start 0) end translate)
   (declare (ignorable start end translate))
-  (apply 'clx-ft2:text-width (screen-number (current-screen)) (clx-ft2::font-face font) text
-         :allow-other-keys t keys))
+  (apply 'clx-ft2:text-width 
+	 (clx-ft2::font-face font) (list text)))
+
 
 (defmethod draw-image-glyphs (drawable 
                               gcontext
                               (font clx-ft2:font)
                               x y
                               sequence &rest keys 
-			      &key start end translate width size)
-  (declare (ignorable start end translate width size))
+			      &key (start 0) end translate width size)
+  (declare (ignorable keys start end translate width size))
   (apply 'clx-ft2:draw-glyphs
          drawable
          gcontext
-	 font
-         sequence
-         x y
-         :update-bg-p t
-         :allow-other-keys t
-         keys))
+  	 x y
+  	 sequence
+  	 :font font
+	 :allow-other-keys t
+	 keys))
