@@ -40,8 +40,9 @@
                               (font clx-ft2:font)
                               x y
                               sequence &rest keys 
-			      &key (start 0) end translate width size)
-  (declare (ignorable keys start end translate width size))
+			      &key (start 0) end translate width size
+                                (update-bg-p t))
+  (declare (ignorable keys start end translate width size update-bg-p))
   (apply 'clx-ft2:draw-glyphs
          drawable
          gcontext
