@@ -49,4 +49,5 @@
   	 sequence
   	 :font font
 	 :allow-other-keys t
+         :update-bg-p t
 	 keys))
